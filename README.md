@@ -1,2 +1,0 @@
-# pilas-cam
-pagina web
