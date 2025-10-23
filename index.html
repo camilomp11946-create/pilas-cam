@@ -1,81 +1,247 @@
-from flask import Flask, render_template_string
-
-app = Flask(__name__)
-
-html_template = """
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Monitor de Pagos</title>
-<style>
-body {
-margin: 0;
-font-family: 'Segoe UI', sans-serif;
-background-color: #f4f6f8;
-}
-.sidebar {
-height: 100vh;
-width: 220px;
-position: fixed;
-background-color: #2f3542;
-color: white;
-padding-top: 20px;
-}
-.sidebar a {
-display: block;
-color: white;
-padding: 15px;
-text-decoration: none;
-}
-.sidebar a:hover {
-background-color: #57606f;
-}
-.main {
-margin-left: 240px;
-padding: 20px;
-}
-.card {
-background-color: white;
-padding: 20px;
-margin-bottom: 20px;
-border-radius: 8px;
-box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-h2 {
-color: #2f3542;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PILASCAM - Seguridad y Vigilancia</title>
+    <style>
+        /* 🎨 Variables para colores y ajustes */
+        :root{
+            --accent: #00d4ff;
+            --accent-dark: #0099cc;
+            --bg-filter-alpha: 0.45; /* Ajusta para ver más/menos la imagen */
+            --content-max-width: 1100px;
+        }
+
+        /* 🌌 Fondo general de la página */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image:
+                linear-gradient(rgba(10, 10, 35, var(--bg-filter-alpha)), rgba(10, 10, 35, var(--bg-filter-alpha))),
+                url('https://raw.githubusercontent.com/camilomp11946-create/pilas-cam/main/istockphoto-1174988543-612x612.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+        }
+
+        /* Encabezado */
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            color: var(--accent);
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a {
+            color: white;
+            margin: 0 12px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.25s;
+        }
+
+        nav a:hover,
+        nav a:focus {
+            color: var(--accent);
+            outline: none;
+        }
+
+        /* Contenedor principal */
+        .wrapper {
+            max-width: var(--content-max-width);
+            margin: 0 auto;
+            padding: 40px 16px;
+        }
+
+        /* Secciones de contenido */
+        .section {
+            padding: 40px 20px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.06);
+            margin: 24px 0;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+        }
+
+        h2 {
+            color: var(--accent);
+            font-size: 1.75rem;
+            margin-bottom: 14px;
+        }
+
+        p {
+            line-height: 1.7;
+            font-size: 1.05rem;
+            margin: 8px 0;
+        }
+
+        /* Botones */
+        .botones {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .btn {
+            background-color: var(--accent);
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.18s, background-color 0.18s;
+            color: #0a0a23;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn:hover,
+        .btn:focus {
+            background-color: var(--accent-dark);
+            color: white;
+            transform: translateY(-2px) scale(1.02);
+            outline: none;
+        }
+
+        /* Imagen destacada */
+        .featured-image {
+            width: 80%;
+            max-width: 600px;
+            border-radius: 12px;
+            display: block;
+            margin: 18px auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+
+        /* Pie de página */
+        footer {
+            background: rgba(0,0,0,0.8);
+            color: white;
+            text-align: center;
+            padding: 18px;
+            font-size: 0.9rem;
+        }
+
+        footer p {
+            margin: 6px 0;
+        }
+
+        /* 📱 Responsivo */
+        @media (max-width: 800px) {
+            body {
+                background-attachment: scroll; /* mejor para móviles */
+            }
+            .section {
+                padding: 20px 14px;
+            }
+            header h1 {
+                font-size: 1.6rem;
+            }
+            .featured-image {
+                width: 100%;
+                max-width: 420px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .wrapper {
+                padding: 20px 12px;
+            }
+            nav a {
+                margin: 0 8px;
+                font-size: 0.95rem;
+            }
+            .botones {
+                gap: 8px;
+            }
+            .btn {
+                padding: 10px 14px;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
 </head>
+
 <body>
-<div class="sidebar">
-<h2 style="text-align:center;">Pagos App</h2>
-#Dashboard</a>
-<a hrefcciones</a>
-<a hrefes</a>
-#Configuración</a>
-</div>
-<div class="main">
-<h2>Panel de Estadísticas</h2>
-<div class="card">
-<h3>Total de Pagos Hoy</h3>
-<p>$1,250.00</p>
-</div>
-<div class="card">
-<h3>Transacciones Exitosas</h3>
-<p>98%</p>
-</div>
-<div class="card">
-<h3>Aplicativos Activos</h3>
-<p>12</p>
-</div>
-</div>
+    <header>
+        <h1>PILASCAM</h1>
+        <nav aria-label="Navegación principal">
+            <a href="#inicio">Inicio</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#informacion">Información</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+    </header>
+
+    <main class="wrapper">
+        <section id="inicio" class="section" aria-labelledby="inicio-title">
+            <h2 id="inicio-title">Bienvenido a PILASCAM</h2>
+            <p>Tu aliado en seguridad inteligente. Protegemos lo que más te importa con sistemas avanzados de vigilancia, control y monitoreo.</p>
+
+            <!-- Imagen destacada -->
+            <img
+                class="featured-image"
+                src="https://raw.githubusercontent.com/camilomp11946-create/pilas-cam/main/istockphoto-1174988543-612x612.jpg"
+                alt="Sistema de cámaras y monitoreo instalado en un hogar"
+                loading="lazy">
+
+            <div class="botones" role="group" aria-label="Servicios principales">
+                <a class="btn" href="#servicios" role="button">Soluciones Residenciales</a>
+                <a class="btn" href="#servicios" role="button">Seguridad Empresarial</a>
+                <a class="btn" href="#servicios" role="button">Monitoreo Remoto</a>
+                <a class="btn" href="#servicios" role="button">Instalaciones Profesionales</a>
+            </div>
+        </section>
+
+        <section id="servicios" class="section" aria-labelledby="servicios-title">
+            <h2 id="servicios-title">Servicios de Seguridad</h2>
+            <p>En PILASCAM ofrecemos soluciones integrales en seguridad: desde asesorías y sistemas de cámaras inteligentes, hasta soporte técnico especializado y mantenimiento de redes de vigilancia.</p>
+            <div class="botones">
+                <a class="btn" href="#contacto" role="button">Asesoría Personalizada</a>
+                <a class="btn" href="#contacto" role="button">Mantenimiento Preventivo</a>
+                <a class="btn" href="#contacto" role="button">Actualización de Sistemas</a>
+                <a class="btn" href="#contacto" role="button">Soporte 24/7</a>
+            </div>
+        </section>
+
+        <section id="informacion" class="section" aria-labelledby="info-title">
+            <h2 id="info-title">Información</h2>
+            <p>PILASCAM es una iniciativa enfocada en mejorar la seguridad de hogares, negocios e instituciones mediante tecnología de última generación. Nuestro compromiso es ofrecer confianza, innovación y eficiencia.</p>
+            <p>Nuestros sistemas permiten vigilancia en tiempo real, alertas automáticas, y un monitoreo confiable desde cualquier dispositivo.</p>
+        </section>
+
+        <section id="contacto" class="section" aria-labelledby="contacto-title">
+            <h2 id="contacto-title">Contacto</h2>
+            <p>📍 Bogotá, Colombia</p>
+            <p>📱 <a href="tel:+573053715927" style="color:inherit; text-decoration:underline;">+57 305 371 5927</a></p>
+            <p>📧 <a href="mailto:pilascam@gmail.gov.co" style="color:inherit; text-decoration:underline;">pilascam@gmail.gov.co</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 PILASCAM. Todos los derechos reservados.</p>
+        <p>Innovación y confianza en seguridad digital.</p>
+    </footer>
 </body>
 </html>
-"""
-
-@app.route('/')
-def home():
-return render_template_string(html_template)
-
-if __name__ == '__main__':
