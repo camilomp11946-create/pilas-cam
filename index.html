@@ -5,14 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PILASCAM - Seguridad y Vigilancia</title>
     <style>
-        /* Fondo llamativo con gradiente */
+        /* 🔹 Fondo con imagen + filtro oscuro para legibilidad */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #0a0a23, #1e3c72, #2a5298);
+            background-image: 
+                linear-gradient(rgba(10, 10, 35, 0.8), rgba(10, 10, 35, 0.8)),
+                url('https://raw.githubusercontent.com/camilomp11946-create/pilas-cam/refs/heads/main/istockphoto-1174988543-612x612.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             color: white;
         }
+
         header {
             background: rgba(0, 0, 0, 0.7);
             padding: 20px 0;
@@ -21,15 +27,18 @@
             top: 0;
             z-index: 10;
         }
+
         header h1 {
             margin: 0;
             font-size: 2.5em;
             letter-spacing: 2px;
             color: #00d4ff;
         }
+
         nav {
             margin-top: 10px;
         }
+
         nav a {
             color: white;
             margin: 0 15px;
@@ -37,26 +46,31 @@
             font-weight: bold;
             transition: 0.3s;
         }
+
         nav a:hover {
             color: #00d4ff;
         }
+
         .section {
             padding: 60px 20px;
             text-align: center;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.08);
             margin: 40px 100px;
             border-radius: 15px;
             box-shadow: 0 0 15px rgba(0,0,0,0.4);
         }
+
         h2 {
             color: #00d4ff;
             font-size: 2em;
             margin-bottom: 20px;
         }
+
         p {
             line-height: 1.8;
             font-size: 1.1em;
         }
+
         .botones {
             display: flex;
             justify-content: center;
@@ -64,6 +78,7 @@
             gap: 15px;
             margin-top: 25px;
         }
+
         button {
             background-color: #00d4ff;
             border: none;
@@ -75,11 +90,13 @@
             color: #0a0a23;
             font-weight: bold;
         }
+
         button:hover {
             background-color: #0099cc;
             color: white;
             transform: scale(1.05);
         }
+
         footer {
             background: rgba(0,0,0,0.8);
             color: white;
@@ -87,6 +104,7 @@
             padding: 20px;
             font-size: 0.9em;
         }
+
         footer p {
             margin: 5px 0;
         }
@@ -107,8 +125,10 @@
         <h2>Bienvenido a PILASCAM</h2>
         <p>Tu aliado en seguridad inteligente. Protegemos lo que más te importa con sistemas avanzados de vigilancia, control y monitoreo.</p>
 
-        <!-- Aquí se añadió la imagen -->
-        <img src="https://share.google/images/qwnpsDHMQFmaA6ALn" alt="Imagen de sistema de vigilancia" style="width:80%; max-width:600px; border-radius:15px; display:block; margin:20px auto;">
+        <!-- Imagen destacada dentro de la sección -->
+        <img src="https://raw.githubusercontent.com/camilomp11946-create/pilas-cam/refs/heads/main/istockphoto-1174988543-612x612.jpg" 
+             alt="Imagen de sistema de vigilancia" 
+             style="width:80%; max-width:600px; border-radius:15px; display:block; margin:20px auto;">
 
         <div class="botones">
             <button>Soluciones Residenciales</button>
@@ -148,9 +168,9 @@
 
     <section id="contacto" class="section">
         <h2>Contacto</h2>
-        <p>Camilo Madrigal</p>
-         <p>Esteban Gambasica</p>
-        <p>📧 Carlos Hurtado</p>
+        <p>📍Bogota, Colombia</p>
+        <p>📱+573053715927</p>
+        <p>📧 pilascam@gmail.gov.co</p>
     </section>
 
     <footer>
@@ -158,8 +178,5 @@
         <p>Innovación y confianza en seguridad digital.</p>
     </footer>
 </body>
-
 </html>
-
-
 
